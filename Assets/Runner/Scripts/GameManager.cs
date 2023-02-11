@@ -4,9 +4,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public PlayerMovement playerMovement;
+    public PlayerMovement player;
     public Collectibles collectibles;
-    public Transform Player;
+    public Transform PlayerTransform;
     public Transform spawnPointPosition;
     public int scoreNum = 0;
     public TextMeshProUGUI ScoreText;
@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
         ScoreText.text = "Score " + scoreNum.ToString();
     }
 
-
     public void ResetScore()
     {
         scoreNum = 0;
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         ResetScore();
-        playerMovement.transform.position = spawnPointPosition.position;
+        player.transform.position = spawnPointPosition.position;
     }
 
 

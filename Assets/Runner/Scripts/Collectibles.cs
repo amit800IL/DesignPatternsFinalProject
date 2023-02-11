@@ -14,6 +14,7 @@ public class Collectibles : MonoBehaviour, IPickAble
     }
     public void Pick()
     {
+        Destroy(gameObject);
         gameManager.scoreNum++;
     }
 
