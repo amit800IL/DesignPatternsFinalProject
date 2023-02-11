@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 959147809068825151}
   - component: {fileID: 959147809068825121}
   - component: {fileID: 959147809068825120}
+  - component: {fileID: 1340765546}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,3 +167,20 @@ MonoBehaviour:
   GroundCheck: {fileID: 0}
   GroundDistance: 0.5
   speed: 10
+--- !u!114 &1340765546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959147809068825150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09cdafa004c6aed4782a7fb1c2a4e51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  damage: 10
+  HitPlayer:
+    m_PersistentCalls:
+      m_Calls: []

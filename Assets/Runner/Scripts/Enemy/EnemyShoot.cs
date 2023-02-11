@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
-    public float SightRange;
+    [SerializeField] float SightRange;
 
-    public PlayerMovement player;
+    [SerializeField] PlayerMovement player;
 
-    public Transform ShootPoint;
+    [SerializeField] Transform ShootPoint;
 
-    public GameObject EnemyBullet;
+    [SerializeField] GameObject EnemyBullet;
 
-    public float bulletSpeedMultiplayer = 10f;
+    [SerializeField] float bulletSpeedMultiplayer = 10f;
 
     Rigidbody rb;
     public void ShootPlayer()
@@ -22,8 +22,5 @@ public class EnemyShoot : MonoBehaviour
         rb.velocity = shootDir * bulletSpeedMultiplayer;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(transform.position, (GameManager.instance.player.transform.position - transform.position).normalized * SightRange);
-    }
+   
 }

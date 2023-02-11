@@ -5,11 +5,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public PlayerMovement player;
-    public Collectibles collectibles;
-    public Transform PlayerTransform;
-    public Transform spawnPointPosition;
     public int scoreNum = 0;
-    public TextMeshProUGUI ScoreText;
+    [SerializeField] Collectibles collectibles;
+    [SerializeField] Transform PlayerTransform;
+    [SerializeField] Transform spawnPointPosition;
+    [SerializeField] TextMeshProUGUI ScoreText;
 
 
     private void Start()

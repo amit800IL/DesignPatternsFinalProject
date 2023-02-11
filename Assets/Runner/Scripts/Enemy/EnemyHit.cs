@@ -7,8 +7,8 @@ using UnityEngine.Events;
 
 public class EnemyHit : MonoBehaviour, IDamagable
 {
-    public int health;
-    public int damage;
+    [SerializeField] int health;
+    [SerializeField] int damage;
 
     public UnityEvent HitEnemy;
 

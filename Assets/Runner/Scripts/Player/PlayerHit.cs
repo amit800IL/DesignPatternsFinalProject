@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 public class PlayerHit : MonoBehaviour, IDamagable
 {
-    public int health;
-    public int damage;
+    [SerializeField] int health;
+    [SerializeField] int damage;
 
-    public UnityEvent HitPlayer;
+    [SerializeField] UnityEvent HitPlayer;
 
     private void Start()
     {
