@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,15 +23,16 @@ public class GameManager : MonoBehaviour
         ScoreText.text = "Score " + scoreNum.ToString();
     }
 
-    public void ResetScore()
-    {
-        scoreNum = 0;
-    }
+    //public void ResetScore()
+    //{
+    //    scoreNum = 0;
+    //}
 
     public void OnPlayerDeath()
     {
-        ResetScore();
-        player.transform.position = spawnPointPosition.position;
+        //ResetScore();
+        //player.transform.position = spawnPointPosition.position;
+        SceneManager.LoadScene("Runner");
     }
 
 
