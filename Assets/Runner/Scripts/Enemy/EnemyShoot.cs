@@ -1,26 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
     [SerializeField] float SightRange;
 
-    [SerializeField] PlayerMovement player;
-
     [SerializeField] Transform ShootPoint;
 
     [SerializeField] GameObject EnemyBullet;
 
-    [SerializeField] float bulletSpeedMultiplayer = 10f;
+    [SerializeField] float bulletSpeedMultiplayer;
 
-    Rigidbody rb;
+    [SerializeField] Rigidbody rb;
+
+    [SerializeField] bool IsPlayerSeen;
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, GameManager.instance.player.transform.position) < SightRange)
+        {
+            ShootPlayer();
+        }
+    }
     public void ShootPlayer()
     {
-        var bullet = Instantiate(EnemyBullet, ShootPoint.position, ShootPoint.rotation);
+        EnemyBullet.SetActive(true);
         Vector3 shootDir = GameManager.instance.player.transform.position - ShootPoint.position;
         rb.velocity = shootDir * bulletSpeedMultiplayer;
+       
     }
 
-   
+
+
 }

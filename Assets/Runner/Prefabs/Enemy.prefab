@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4782428152928535607}
   - component: {fileID: 4782428152928535606}
   - component: {fileID: 4782428152928535609}
-  - component: {fileID: 1530289220481301172}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -130,24 +129,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1530289220481301172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782428152928535608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d0d3196f537364fa318ffeaa2445e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  damage: 10
-  HitEnemy:
-    m_PersistentCalls:
-      m_Calls: []
-  SightRange: 10
 --- !u!1 &4782428154472171861
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,10 +241,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SightRange: 10
-  player: {fileID: 0}
   ShootPoint: {fileID: 4782428154094751928}
   EnemyBullet: {fileID: 4782428154094751931}
-  bulletSpeedMultiplayer: 10
+  bulletSpeedMultiplayer: 1
+  rb: {fileID: 2026410331}
+  IsPlayerSeen: 0
 --- !u!1001 &7595853539758396141
 PrefabInstance:
   m_ObjectHideFlags: 0

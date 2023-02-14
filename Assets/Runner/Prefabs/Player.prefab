@@ -166,7 +166,7 @@ MonoBehaviour:
     m_Bits: 8
   GroundCheck: {fileID: 0}
   GroundDistance: 0.5
-  speed: 10
+  speed: 20
 --- !u!114 &1340765546
 MonoBehaviour:
   m_ObjectHideFlags: 0

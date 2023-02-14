@@ -7,7 +7,6 @@ public class PlayerHit : MonoBehaviour, IDamagable
 {
     [SerializeField] int health;
     [SerializeField] int damage;
-
     [SerializeField] UnityEvent HitPlayer;
 
     private void Start()
@@ -19,7 +18,7 @@ public class PlayerHit : MonoBehaviour, IDamagable
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            GameManager.instance.OnPlayerDeath();
         }
     }
 
@@ -28,6 +27,8 @@ public class PlayerHit : MonoBehaviour, IDamagable
         if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             HitPlayer.Invoke();
+            Destroy(collision.gameObject);
         }
+        
     }
 }

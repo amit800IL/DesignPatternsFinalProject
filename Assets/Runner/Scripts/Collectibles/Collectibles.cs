@@ -5,17 +5,24 @@ using UnityEngine.Events;
 
 public class Collectibles : MonoBehaviour, IPickAble
 {
-    public UnityEvent PickObject;
-    public GameManager gameManager;
+    [SerializeField] UnityEvent PickObject;
+    [SerializeField] Vector3 rotation;
+    [SerializeField] float rotationSpeed;
+    
 
     private void Start()
     {
         PickObject.AddListener(Pick);
     }
+
+    private void Update()
+    {
+        transform.Rotate(rotation * Time.deltaTime * rotationSpeed);
+    }
     public void Pick()
     {
         Destroy(gameObject);
-        gameManager.scoreNum++;
+        GameManager.instance.scoreNum++;
     }
 
     private void OnCollisionEnter(Collision collision)

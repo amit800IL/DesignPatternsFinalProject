@@ -3,16 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject obstacle;
+    [SerializeField] GameObject obstacle;
     [SerializeField] LayerMask groundMask;
-    [SerializeField] private Transform GroundCheck;
-    [SerializeField] private float GroundDistance;
+    [SerializeField] Transform GroundCheck;
+    [SerializeField] float GroundDistance;
     [SerializeField] float speed;
     private Rigidbody rb;
     private DesignPatternsFinalProject InputActions;
     private Vector3 newMove;
     private Vector3 moveInput;
-
     private bool isGrounded;
 
     public void IsGrounded() => isGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, groundMask);
