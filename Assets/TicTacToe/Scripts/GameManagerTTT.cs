@@ -8,14 +8,12 @@ using UnityEngine.Events;
 
 public class GameManagerTTT : MonoBehaviour
 {
-    //MODEL
+    //Controller
     //-------------------------
 
     //Singleton instance
     public static GameManagerTTT instance;
     //-------------------------
-
-    ViewManager viewManager;
 
     int turn = 1;
     float middleX = Screen.width / 2;

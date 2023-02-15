@@ -6,8 +6,6 @@ public class ViewManager : MonoBehaviour
 {
     public static ViewManager instance;
 
-    [SerializeField] Canvas canvas;
-
     [SerializeField] GameObject TicTacPrefab;
     [SerializeField] GameObject ToePrefab;
 
