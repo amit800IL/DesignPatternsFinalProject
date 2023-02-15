@@ -15,14 +15,16 @@ public class GameManagerTTT : MonoBehaviour
     public static GameManagerTTT instance;
     //-------------------------
 
+    ViewManager viewManager;
+
     int turn = 1;
     float middleX = Screen.width / 2;
     float middleY = Screen.height/ 2;
 
     [SerializeField] List<GameObject> Positions;
 
-    [SerializeField] GameObject[,] positionGrid = new GameObject[3, 3];
-    [SerializeField] int[,] stateGrid = new int[3, 3];
+    public GameObject[,] positionGrid = new GameObject[3, 3];
+    public int[,] stateGrid = new int[3, 3];
 
 
     UnityEvent EndGame;
@@ -67,10 +69,33 @@ public class GameManagerTTT : MonoBehaviour
         
     }
 
+    public void PlaceShape(GameObject position)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (positionGrid[i, j].Equals(position))
+                {
+                    stateGrid[i, j] = (turn % 2) + 1;
+                    turn++;
+                    ViewManager.instance.UpdateView();
+                }
+            }
+        }
+    }
+
     void CheckWin()
     {
         // win logic check
         EndGame.Invoke();
+    }
+
+    public enum PositionState
+    {
+        None,
+        Toe,
+        TicTac
     }
 
 }

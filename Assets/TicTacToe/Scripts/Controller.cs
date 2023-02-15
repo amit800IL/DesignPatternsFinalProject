@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log(gameObject.transform.position + gameObject.name);
+        GameManagerTTT.instance.PlaceShape(gameObject);
     }
 
 }
