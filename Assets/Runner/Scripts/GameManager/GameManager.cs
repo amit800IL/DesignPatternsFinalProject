@@ -23,15 +23,8 @@ public class GameManager : MonoBehaviour
         ScoreText.text = "Score " + scoreNum.ToString();
     }
 
-    //public void ResetScore()
-    //{
-    //    scoreNum = 0;
-    //}
-
     public void OnPlayerDeath()
     {
-        //ResetScore();
-        //player.transform.position = spawnPointPosition.position;
         SceneManager.LoadScene("Runner");
     }
 
