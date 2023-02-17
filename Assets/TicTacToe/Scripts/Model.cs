@@ -1,28 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEngine;
 
 public class Model
 {
-    int Turn { get; set; }
-    int[,] gridState = new int[3,3];
+    public int[,] gridState { get; private set; } = new int[3,3];
+    public int Turn { get; private set; } = 1;
 
-    Stack<int[,]> previousStates = new Stack<int[,]>();
-    Stack<int[,]> nextStates = new Stack<int[,]>();
+    //memento - holds previous states of the game.
+
+    //Stack<int[,]> previousStates = new Stack<int[,]>();
+    //Stack<int[,]> nextStates = new Stack<int[,]>();
     public int[,] GetGridState()
     {
         return gridState;
     }
 
-    public void SetGridState()
+    public int[,] CloneGridState()
     {
-        gridState = GetGridState();
+        return (int[,])gridState.Clone();
     }
 
-    public int[,] GetPreviousState()
+    public void SetGridState(int[,] grid)
     {
-        //nextStates.Push(previousStates.Peek());
-        return previousStates.Pop();
+        gridState = grid;
     }
+
+    public void SetTurn(int num)
+    {
+        Turn = num;
+    }
+
+    //public int[,] GetPreviousState()
+    //{
+    //    //automatically moves the Popped previous state into the next state instead of having to rely on the controller handling it in the correct order.
+    //    nextStates.Push(previousStates.Peek());
+    //    return previousStates.Pop();
+    //}
+
+    //public void SetPreviousState(int[,] grid)
+    //{
+    //    previousStates.Push(grid);
+    //}
+
+    //public int[,] GetNextState()
+    //{
+    //    if(nextStates.Count == 0)
+    //    {
+    //        return null;
+    //    }
+    //    previousStates.Push(nextStates.Peek());
+    //    return nextStates.Pop();
+    //}
 }

@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Controller : MonoBehaviour, IPointerDownHandler
+public class ChoosePosition : MonoBehaviour, IPointerDownHandler
 {
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log(gameObject.transform.position + gameObject.name);
-        GameManagerTTT.instance.PlaceShape(gameObject);
+        ControllerTTT.instance.PlaceShape(gameObject);
     }
-
 }
