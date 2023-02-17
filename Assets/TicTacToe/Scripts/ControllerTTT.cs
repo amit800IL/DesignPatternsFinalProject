@@ -22,10 +22,9 @@ public class ControllerTTT : MonoBehaviour
     public GameObject[,] positionGrid = new GameObject[3, 3];
 
     Stack<GameStateMemento> gameStateMementos = new Stack<GameStateMemento>();
-    Stack<GameStateMemento> nextGameStateMemento = new Stack<GameStateMemento>();
+    Stack<GameStateMemento> nextGameStateMementos = new Stack<GameStateMemento>();
 
-    public GameObject WinText;
-
+    public int winningPlayer = 0;
 
     private void Awake()
     {
@@ -44,14 +43,25 @@ public class ControllerTTT : MonoBehaviour
 
     private void Update()
     {
-        ViewManager.instance.UpdateView(model.gridState);
+        ViewManager.instance.UpdateView(model);
         if(CheckForWin())
         {
-            WinText.SetActive(true);
+            if(winningPlayer == 1)
+            {
+                model.Player2Score++;
+            }
+            if(winningPlayer == 2)
+            {
+                model.Player1Score++;
+            }
+            ViewManager.instance.ShowPlayerWinText(winningPlayer);
+            winningPlayer = 0;
+            
+            ResetGrid();
         }
-        else
+        else if(GridFull())
         {
-            WinText.SetActive(false);
+            ResetGrid();
         }
     }
 
@@ -63,25 +73,42 @@ public class ControllerTTT : MonoBehaviour
         {
             if (grid[i, 0] == grid[i, 1] && grid[i, 1] == grid[i, 2] && grid[i, 0] != 0)
             {
+                winningPlayer = grid[i, 0];
                 return true;
             }
             if (grid[0, i] == grid[1, i] && grid[1, i] == grid[2, i] && grid[0, i] != 0)
             {
+                winningPlayer = grid[0, i];
                 return true;
             }
         }
 
         if (grid[0, 0] == grid[1, 1] && grid[1, 1] == grid[2, 2] && grid[0, 0] != 0)
         {
+            winningPlayer = grid[1, 1];
             return true;
         }
 
         if (grid[0, 2] == grid[1, 1] && grid[1, 1] == grid[2, 0] && grid[0, 2] != 0)
         {
+            winningPlayer = grid[1, 1];
             return true;
         }
 
+        winningPlayer = 0;
         return false;
+    }
+
+    public bool GridFull()
+    {
+        foreach(var i in model.gridState)
+        {
+            if(i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void InitBoard()
@@ -99,7 +126,23 @@ public class ControllerTTT : MonoBehaviour
         }
         model.SetGridState(newGrid);
         AddMemento();
+    }
 
+    void ResetGrid()
+    {
+        gameStateMementos.Clear();
+        nextGameStateMementos.Clear();
+
+        int[,] newGrid = new int[3, 3];
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                newGrid[i, j] = 0;
+            }
+        }
+        model.SetGridState(newGrid);
+        AddMemento();
     }
 
 
@@ -134,7 +177,7 @@ public class ControllerTTT : MonoBehaviour
     //adds memento (saves current state)
     public void AddMemento()
     {
-        nextGameStateMemento.Clear();
+        nextGameStateMementos.Clear();
         gameStateMementos.Push(CreateMemento());
     }
 
@@ -147,7 +190,7 @@ public class ControllerTTT : MonoBehaviour
         {
             return;
         }
-        nextGameStateMemento.Push(CreateMemento());
+        nextGameStateMementos.Push(CreateMemento());
         gameStateMementos.Pop();
         model.SetGridState(gameStateMementos.Peek().GetGridState());
         model.SetTurn(gameStateMementos.Peek().turn);
@@ -159,11 +202,11 @@ public class ControllerTTT : MonoBehaviour
     public void NextMemento()
     {
         print("REDO");
-        if (nextGameStateMemento.Count == 0)
+        if (nextGameStateMementos.Count == 0)
         {
             return;
         }
-        gameStateMementos.Push(nextGameStateMemento.Pop());
+        gameStateMementos.Push(nextGameStateMementos.Pop());
         model.SetGridState(gameStateMementos.Peek().GetGridState());
         model.SetTurn(gameStateMementos.Peek().turn);
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ViewManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class ViewManager : MonoBehaviour
 
     [SerializeField] GameObject TicTacPrefab;
     [SerializeField] GameObject ToePrefab;
+    [SerializeField] TextMeshProUGUI PlayerWinsText;
+    [SerializeField] TextMeshProUGUI Player1ScoreText;
+    [SerializeField] TextMeshProUGUI Player2ScoreText;
+
 
     GameObject[,] gameObjects = new GameObject[3, 3];
 
@@ -26,9 +31,10 @@ public class ViewManager : MonoBehaviour
 
     }
 
-
-    public void UpdateView(int[,] grid)
+    public void UpdateView(Model model)
     {
+        //update grid view
+        int[,] grid = model.CloneGridState();
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -43,8 +49,35 @@ public class ViewManager : MonoBehaviour
                 }
             }
         }
+
+        //update score
+        Player1ScoreText.text = "Player 1: " + model.Player1Score;
+        Player2ScoreText.text = "Player 2: " + model.Player2Score;
     }
 
+    public void ShowPlayerWinText(int player)
+    {
+        float timer = 3f;
+        if(player == 1)
+        {
+            PlayerWinsText.text = "Player " + 2 + "Wins";
+            PlayerWinsText.gameObject.SetActive(true);
+            while(timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+        }
+        if(player == 2)
+        {
+            PlayerWinsText.text = "Player " + 1 + "Wins";
+            PlayerWinsText.gameObject.SetActive(true);
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+        }
+        PlayerWinsText.gameObject.SetActive(false);
+    }
     private GameObject InstShape(int state)
     {
         switch(state)
