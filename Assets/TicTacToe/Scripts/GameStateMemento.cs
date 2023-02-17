@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameStateMemento
 {
-    public int turn { get; private set; }
-    public int[,] gridState { get; private set; }
+    public int turn { get;}
+    private int[,] gridState;
 
     public GameStateMemento(int turn, int[,] gridState)
     {
@@ -13,4 +13,8 @@ public class GameStateMemento
         this.gridState = gridState;
     }
 
+    public int[,] GetGridState()
+    {
+        return (int[,])gridState.Clone();
+    }
 }

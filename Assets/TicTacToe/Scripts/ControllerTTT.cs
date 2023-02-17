@@ -17,19 +17,14 @@ public class ControllerTTT : MonoBehaviour
 
     Model model = new Model();
 
-    //float middleX = Screen.width / 2;
-    //float middleY = Screen.height/ 2;
-
     [SerializeField] List<GameObject> Positions;
 
     public GameObject[,] positionGrid = new GameObject[3, 3];
 
-
-    //List<GameStateMemento> mementos = new List<GameStateMemento>();
     Stack<GameStateMemento> gameStateMementos = new Stack<GameStateMemento>();
     Stack<GameStateMemento> nextGameStateMemento = new Stack<GameStateMemento>();
 
-    //int mementoIndex = -1;
+    public GameObject WinText;
 
 
     private void Awake()
@@ -50,6 +45,43 @@ public class ControllerTTT : MonoBehaviour
     private void Update()
     {
         ViewManager.instance.UpdateView(model.gridState);
+        if(CheckForWin())
+        {
+            WinText.SetActive(true);
+        }
+        else
+        {
+            WinText.SetActive(false);
+        }
+    }
+
+    public bool CheckForWin()
+    {
+        int[,] grid = model.GetGridState();
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (grid[i, 0] == grid[i, 1] && grid[i, 1] == grid[i, 2] && grid[i, 0] != 0)
+            {
+                return true;
+            }
+            if (grid[0, i] == grid[1, i] && grid[1, i] == grid[2, i] && grid[0, i] != 0)
+            {
+                return true;
+            }
+        }
+
+        if (grid[0, 0] == grid[1, 1] && grid[1, 1] == grid[2, 2] && grid[0, 0] != 0)
+        {
+            return true;
+        }
+
+        if (grid[0, 2] == grid[1, 1] && grid[1, 1] == grid[2, 0] && grid[0, 2] != 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     void InitBoard()
@@ -67,6 +99,7 @@ public class ControllerTTT : MonoBehaviour
         }
         model.SetGridState(newGrid);
         AddMemento();
+
     }
 
 
@@ -101,24 +134,6 @@ public class ControllerTTT : MonoBehaviour
     //adds memento (saves current state)
     public void AddMemento()
     {
-
-        ////check if the list is longer than the current index
-        //if (mementos.Count - 1 > mementoIndex)
-        //{
-        //    ////if list is longer then remove list components that are bigger than the mementoIndex
-        //    //for (int i = mementoIndex + 1; i < mementos.Count; i++)
-        //    //{
-        //    //    mementos.RemoveAt(mementoIndex + 1);
-        //    //}
-        //    while(mementos.Count - 1 > mementoIndex)
-        //    {
-        //        print(mementos.Count);
-        //        mementos.RemoveAt(mementoIndex + 1);
-        //    }
-        //}
-        //mementos.Add(CreateMemento());
-        //mementoIndex++;
-
         nextGameStateMemento.Clear();
         gameStateMementos.Push(CreateMemento());
     }
@@ -134,17 +149,11 @@ public class ControllerTTT : MonoBehaviour
         }
         nextGameStateMemento.Push(CreateMemento());
         gameStateMementos.Pop();
-        model.SetGridState(gameStateMementos.Peek().gridState);
+        model.SetGridState(gameStateMementos.Peek().GetGridState());
         model.SetTurn(gameStateMementos.Peek().turn);
 
     }
-        //if(mementoIndex == 0)
-        //{
-        //    return;
-        //}
-        //mementoIndex--;
-        //model.SetGridState(mementos[mementoIndex].gridState);
-        //model.SetTurn(mementos[mementoIndex].turn);
+
 
     //redo if possible (not last in list)
     public void NextMemento()
@@ -154,19 +163,11 @@ public class ControllerTTT : MonoBehaviour
         {
             return;
         }
-        var nextMemento = nextGameStateMemento.Pop();
-        gameStateMementos.Push(nextMemento);
-        model.SetGridState(gameStateMementos.Peek().gridState);
+        gameStateMementos.Push(nextGameStateMemento.Pop());
+        model.SetGridState(gameStateMementos.Peek().GetGridState());
         model.SetTurn(gameStateMementos.Peek().turn);
     }
 
-        //if (mementoIndex == mementos.Count - 1)
-        //{
-        //    return;
-        //}
-        //model.SetGridState(mementos[mementoIndex + 1].gridState);
-        //model.SetTurn(mementos[mementoIndex + 1].turn);
-        //mementoIndex++;
 
     [ContextMenu("print all mementos")]
     public void PrintAllMementos()
@@ -174,18 +175,11 @@ public class ControllerTTT : MonoBehaviour
         foreach(var memento in gameStateMementos)
         {
             print("new memento");
-            foreach(var num in memento.gridState)
+            foreach(var num in memento.GetGridState())
             {
                 print(num);
             }
         }
-    }
-
-    public enum PositionState
-    {
-        None,
-        Toe,
-        TicTac
     }
 
 }

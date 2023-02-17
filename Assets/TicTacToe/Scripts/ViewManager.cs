@@ -10,7 +10,6 @@ public class ViewManager : MonoBehaviour
     [SerializeField] GameObject TicTacPrefab;
     [SerializeField] GameObject ToePrefab;
 
-    //bool[,] activeShape = new bool[3, 3];
     GameObject[,] gameObjects = new GameObject[3, 3];
 
     private void Awake()
@@ -25,19 +24,8 @@ public class ViewManager : MonoBehaviour
             return;
         }
 
-        InitView();
     }
 
-    private void InitView()
-    {
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    for (int j = 0; j < 3; j++)
-        //    {
-        //        activeShape[i, j] = false;
-        //    }
-        //}
-    }
 
     public void UpdateView(int[,] grid)
     {
@@ -53,14 +41,6 @@ public class ViewManager : MonoBehaviour
                 {
                     gameObjects[i, j] = Instantiate(InstShape(grid[i, j]), ControllerTTT.instance.positionGrid[i, j].transform);
                 }
-
-
-                //if (grid[i, j] != 0 && !activeShape[i,j])
-                //{
-                //    print("position state: " + ControllerTTT.instance.stateGrid[i, j]);
-                //    Instantiate(InstShape(ControllerTTT.instance.stateGrid[i, j]), ControllerTTT.instance.positionGrid[i,j].transform);
-                //    activeShape[i, j] = true;
-                //}
             }
         }
     }
