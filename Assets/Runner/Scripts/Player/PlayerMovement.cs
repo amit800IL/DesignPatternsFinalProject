@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            GameManager.instance.OnPlayerDeath();
+            GameManager.Instance.OnPlayerDeath();
         }
     }
 

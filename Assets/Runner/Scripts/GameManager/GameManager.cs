@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager instance;
+    public static GameManager Instance { get; private set; }
     public PlayerMovement player;
     public int scoreNum = 0;
     [SerializeField] Collectibles collectibles;
@@ -13,9 +14,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI ScoreText;
 
 
-    private void Start()
+    private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

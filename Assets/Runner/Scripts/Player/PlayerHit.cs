@@ -18,7 +18,7 @@ public class PlayerHit : MonoBehaviour, IDamagable
         health -= damage;
         if (health <= 0)
         {
-            GameManager.instance.OnPlayerDeath();
+            GameManager.Instance.OnPlayerDeath();
         }
     }
 

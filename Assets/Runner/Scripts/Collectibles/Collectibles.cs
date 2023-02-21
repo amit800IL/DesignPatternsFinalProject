@@ -22,7 +22,7 @@ public class Collectibles : MonoBehaviour, IPickAble
     public void Pick()
     {
         Destroy(gameObject);
-        GameManager.instance.scoreNum++;
+        GameManager.Instance.scoreNum++;
     }
 
     private void OnCollisionEnter(Collision collision)

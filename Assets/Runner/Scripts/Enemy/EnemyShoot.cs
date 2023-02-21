@@ -15,7 +15,7 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] bool IsPlayerSeen;
     private void Update()
     {
-        if (Vector3.Distance(transform.position, GameManager.instance.player.transform.position) < SightRange)
+        if (Vector3.Distance(transform.position, GameManager.Instance.player.transform.position) < SightRange)
         {
             ShootPlayer();
         }
@@ -23,7 +23,7 @@ public class EnemyShoot : MonoBehaviour
     public void ShootPlayer()
     {
         EnemyBullet.SetActive(true);
-        Vector3 shootDir = GameManager.instance.player.transform.position - ShootPoint.position;
+        Vector3 shootDir = GameManager.Instance.player.transform.position - ShootPoint.position;
         rb.velocity = shootDir * bulletSpeedMultiplayer;
        
     }
