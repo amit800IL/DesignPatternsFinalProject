@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
     public static GameManager Instance { get; private set; }
+
     public PlayerMovement player;
+
     public int scoreNum = 0;
     [SerializeField] Collectibles collectibles;
     [SerializeField] Transform PlayerTransform;
@@ -16,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
